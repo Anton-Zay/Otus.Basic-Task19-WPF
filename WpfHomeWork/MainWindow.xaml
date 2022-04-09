@@ -1,0 +1,82 @@
+﻿<Window x:Class="WpfHomeWork.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="EmployeeTree" Height="450" Width="800" WindowStyle="ThreeDBorderWindow">
+
+    <Grid x:Name="MaimProgrammWindow" Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="1.2*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Grid.RowSpan="3" BorderBrush="Black" Margin="1" BorderThickness="2">
+            <StackPanel Margin="5" VerticalAlignment="Top">
+
+                <TextBlock Text="ФИО сотрудника" />
+                <TextBox Text="{Binding Name}" Margin="0 0 0 10"/>
+
+                <TextBlock Text="Зарплата сотрудника" />
+                <TextBox Text="{Binding Salary}" Margin="0 0 0 10" />
+
+                <Button Command="{Binding AddEmployeeCommand, Mode=OneTime}" Content="Add" />
+
+                <TextBlock Text="Введите искомую зарплату" Margin="0 40 0 0"/>
+                <TextBox Text="{Binding SearchSalary}" Margin="0 0 0 10"/>
+
+                <Button Command="{Binding SearchEmployeeCommand, Mode=OneTime}" Content="Search" />
+
+
+            </StackPanel>
+        </Border>
+
+
+
+
+        <StackPanel Grid.Row="2" Margin="5" VerticalAlignment="Center">
+
+            <Button Command="{Binding CreateNewTreeCommand, Mode=OneTime}" Content="Create new"/>
+
+        </StackPanel>
+
+        <Border BorderBrush="Black" Margin="1" BorderThickness="2" Grid.Column="1" Grid.Row="0">
+            <TextBlock x:Name="PrintLastEmployee" Text="{Binding Employee.EmployeeString}" Margin="4" Background="White">
+            </TextBlock>
+        </Border>
+
+        <Border BorderBrush="Black" Margin="1" BorderThickness="2" Grid.Column="1" Grid.Row="1">
+            <ScrollViewer  Margin="4" Background="White">
+                <ItemsControl ItemsSource="{Binding Employees, Mode=OneTime}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding EmployeeString}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <Border BorderBrush="Black" Margin="1" BorderThickness="2" Grid.Column="1" Grid.Row="2">
+            <StackPanel>
+                <TextBlock Background="White" Visibility="{Binding TextBlock}" Text="Сотрудника(-ов) с такой зарплатой не найдено."/>
+                <ScrollViewer Visibility="{Binding ScrollViewer}" Margin="4" Background="White">
+                    <ItemsControl  ItemsSource="{Binding SearchList, Mode=OneTime}" Height="75">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding EmployeeString}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                     </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
